@@ -1,0 +1,101 @@
+{
+    "title": "BikeWise API v2",
+    "description": "<p>This is an API for accessing information about bicycling related incidents. You can find the source code on <a href=\"https://github.com/bikeindex/bikewise\">GitHub</a>.</p>\n",
+    "docsUrl": "https://www.bikewise.org/documentation/api_v2",
+    "url": "https://api.apis.guru/v2/specs/bikewise.org/v2/swagger.json",
+    "envVars": {},
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://bikewise.org/api",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            }
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "GET__version_incidents___format_": {
+            "main": "./lib/actions/GET__version_incidents___format_.js",
+            "title": "Paginated incidents matching parameters",
+            "description": "\n<p>If you'd like more detailed information about bike incidents, use this endpoint. For mapping, <code>locations</code> is probably a better bet.</p>\n\n<p><strong>Notes on location searching</strong>: <br />\n- <code>proximity</code> accepts an ip address, an address, zipcode, city, or latitude,longitude - i.e. <code>70.210.133.87</code>, <code>210 NW 11th Ave, Portland, OR</code>, <code>60647</code>, <code>Chicago, IL</code>, and <code>45.521728,-122.67326</code> are all acceptable<br />\n- <code>proximity_square</code> sets the length of the sides of the square to find matches inside of. The square is centered on the location specified by <code>proximity</code>. It defaults to 100.</p>\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/GET__version_incidents___format_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "GET__version_incidents__id___format_": {
+            "main": "./lib/actions/GET__version_incidents__id___format_.js",
+            "title": "GET__version_incidents__id___format_",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/GET__version_incidents__id___format_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "GET__version_locations___format_": {
+            "main": "./lib/actions/GET__version_locations___format_.js",
+            "title": "Unpaginated geojson response",
+            "description": "<p><strong>This endpoint behaves exactly like</strong> <code>incidents</code>, but returns a valid geojson <code>FeatureCollection</code> that looks like this:</p>\n\n<pre><code>{\n  type: \"FeatureCollection\",\n  features: [\n    {\n      type: \"Feature\",\n      properties: {\n      id: 4474199,\n      type: \"Theft\",\n      occurred_at: 1428536937\n    },\n      geometry: {\n      type: \"Point\",\n      coordinates: [ -122.6244177, 45.5164386 ]\n    }\n  }\n}\n</code></pre>\n\n<p>It doesn't paginate. If you pass the <code>all</code> parameter it returns all matches (which can be big, &gt; 4mb), otherwise it returns the 100 most recent.</p>\n\n<p><strong>Go forth and make maps!</strong></p>\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/GET__version_locations___format_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "GET__version_locations_markers___format_": {
+            "main": "./lib/actions/GET__version_locations_markers___format_.js",
+            "title": "Unpaginated geojson response with simplestyled markers",
+            "description": "<p>This behaves exactly like the root <code>locations</code> endpoint, but returns <a href=\"https://github.com/mapbox/simplestyle-spec\">simplestyled markers</a> (<a href=\"https://www.mapbox.com/guides/markers/#simple-style\">mapbox styled markers</a>)</p>\n\n<p><strong>Go forth and make maps!</strong></p>\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/GET__version_locations_markers___format_.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}

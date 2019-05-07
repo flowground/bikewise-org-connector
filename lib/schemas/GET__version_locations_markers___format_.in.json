@@ -1,0 +1,50 @@
+{
+    "type": "object",
+    "properties": {
+        "occurred_before": {
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+        },
+        "occurred_after": {
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+        },
+        "incident_type": {
+            "required": false,
+            "type": "string",
+            "enum": [
+                "crash",
+                "hazard",
+                "theft",
+                "unconfirmed",
+                "infrastructure_issue",
+                "chop_shop"
+            ]
+        },
+        "proximity": {
+            "required": false,
+            "type": "string"
+        },
+        "proximity_square": {
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": 100
+        },
+        "query": {
+            "required": false,
+            "type": "string"
+        },
+        "limit": {
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+        },
+        "all": {
+            "required": false,
+            "type": "boolean"
+        }
+    }
+}
