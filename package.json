@@ -1,7 +1,7 @@
 {
     "name": "bikewise-org-connector",
     "version": "2.0.0",
-    "description": "<p>This is an API for accessing information about bicycling related incidents. You can find the source code on <a href=\"https://github.com/bikeindex/bikewise\">GitHub</a>.</p>\n",
+    "description": "This is an API for accessing information about bicycling related incidents. You\ncan find the source code on GitHub [https://github.com/bikeindex/bikewise].",
     "main": "component.json",
     "dependencies": {
         "elasticio-node": "0.0.9",
